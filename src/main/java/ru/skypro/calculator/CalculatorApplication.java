@@ -1,14 +1,14 @@
-package ru.skypro.calculator2;
+package ru.skypro.calculator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Calculator2Application {
+public class CalculatorApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(Calculator2Application.class, args);
+		SpringApplication.run(CalculatorApplication.class, args);
 	}
 
 }

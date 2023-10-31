@@ -5,9 +5,11 @@ import ru.skypro.calculator.service.CalculatorService;
 
 @Service
 public class CalculatorServiceimpl implements CalculatorService {
+
     @Override
     public String plus(int num1, int num2) {
-        return num1 + " + " + num2 + " = " + (num1 + num2);
+        int sum = num1 + num2;
+        return plus();
     }
 
     @Override
@@ -24,4 +26,6 @@ public class CalculatorServiceimpl implements CalculatorService {
     public String divide(int num1, int num2) {
         return num1 + " / " + num2 + " = " + (num1 / num2);
     }
+
+
 }

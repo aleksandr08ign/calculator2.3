@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.skypro.calculator.service.CalculatorService;
 
 @Service
-public abstract class CalculatorServiceimpl implements CalculatorService {
+public class CalculatorServiceimpl implements CalculatorService {
 
     @Override
     public String plus(int num1, int num2) {

@@ -27,11 +27,10 @@ public class CalculatorController {
     public String plus(
             @RequestParam(name = "num1", required = false) Integer num1,
             @RequestParam(name = "num2", required = false) Integer num2) {
-        if (num1 != null && num2 != null) {
+        if (num1 == null && num2 == null) {
             return "Оба аргумента обязательны!";
         }
         return num1 + " + " +  num2 + " = " + calculatorService.plus(num1, num2);
-
     }
 
 

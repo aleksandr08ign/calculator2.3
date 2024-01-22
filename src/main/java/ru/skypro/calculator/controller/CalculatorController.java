@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.skypro.calculator.exception.AllArgumentsException;
 import ru.skypro.calculator.service.CalculatorService;
 
 @RestController
@@ -26,9 +27,10 @@ public class CalculatorController {
     @GetMapping("/plus")
     public String plus(
             @RequestParam(name = "num1", required = false) Integer num1,
-            @RequestParam(name = "num2", required = false) Integer num2) {
-        if (num1 == null && num2 == null) {
-            return "Оба аргумента обязательны!";
+            @RequestParam(name = "num2", required = false) Integer num2
+    ) {
+        if (num1 == null || num2 == null) {
+            throw new AllArgumentsException("Оба аргумента обязательны!");
         }
         return num1 + " + " +  num2 + " = " + calculatorService.plus(num1, num2);
     }
@@ -40,7 +42,7 @@ public class CalculatorController {
             @RequestParam(name = "num2", required = false) Integer num2
     ) {
         if (num1 == null || num2 == null) {
-            return "Оба аргумента обязательны!";
+            throw new AllArgumentsException("Оба аргумента обязательны!");
         }
         return num1 + " - " +  num2 + " = " + calculatorService.minus(num1, num2);
     }
@@ -50,9 +52,9 @@ public class CalculatorController {
             @RequestParam(name = "num1", required = false) Integer num1,
             @RequestParam(name = "num2", required = false) Integer num2
     ) {
-        if (num1 == null || num2 == null) {
-            return "Оба аргумента обязательны!";
-        }
+        if (num1 == null || num2 == null)
+    throw new AllArgumentsException("Оба аргумента обязательны!");
+
         return num1 + " * " +  num2 + " = " + calculatorService.multiply(num1, num2);
     }
 
@@ -61,12 +63,9 @@ public class CalculatorController {
             @RequestParam(name = "num1", required = false) Integer num1,
             @RequestParam(name = "num2", required = false) Integer num2
     ) {
-        if (num1 == null || num2 == null) {
-            return "Оба аргумента обязательны!";
-        }
-        if (num2.equals(0)) {
-            return "Деление на ноль запрещено!";
-        }
+        if (num1 == null || num2 == null)
+            throw new AllArgumentsException("Оба аргумента обязательны!");
+
         return num1 + " / " +  num2 + " = " + calculatorService.divide(num1, num2);
     }
 }

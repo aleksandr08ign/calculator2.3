@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.skypro.calculator.exception.AllArgumentsException;
 import ru.skypro.calculator.service.CalculatorService;
-import ru.skypro.calculator.service.impl.CalculatorServiceimpl;
 
 @RestController
 @RequestMapping("/calculator")
@@ -14,6 +14,7 @@ public class CalculatorController {
     private final CalculatorService calculatorService;
 
     public CalculatorController(CalculatorService calculatorService) {
+
         this.calculatorService = calculatorService;
     }
 
@@ -26,13 +27,12 @@ public class CalculatorController {
     @GetMapping("/plus")
     public String plus(
             @RequestParam(name = "num1", required = false) Integer num1,
-            @RequestParam(name = "num2", required = false) Integer num2,
-            @RequestParam (name = "sum", required = false) Integer sum)
-    {
+            @RequestParam(name = "num2", required = false) Integer num2
+    ) {
         if (num1 == null || num2 == null) {
-            return "Оба аргумента обязательны!";
+            throw new AllArgumentsException("Оба аргумента обязательны!");
         }
-        return CalculatorService.plus(num1, num2, sum);
+        return num1 + " + " +  num2 + " = " + calculatorService.plus(num1, num2);
     }
 
 
@@ -42,9 +42,9 @@ public class CalculatorController {
             @RequestParam(name = "num2", required = false) Integer num2
     ) {
         if (num1 == null || num2 == null) {
-            return "Оба аргумента обязательны!";
+            throw new AllArgumentsException("Оба аргумента обязательны!");
         }
-        return calculatorService.minus(num1, num2);
+        return num1 + " - " +  num2 + " = " + calculatorService.minus(num1, num2);
     }
 
     @GetMapping("/multiply")
@@ -52,10 +52,10 @@ public class CalculatorController {
             @RequestParam(name = "num1", required = false) Integer num1,
             @RequestParam(name = "num2", required = false) Integer num2
     ) {
-        if (num1 == null || num2 == null) {
-            return "Оба аргумента обязательны!";
-        }
-        return calculatorService.multiply(num1, num2);
+        if (num1 == null || num2 == null)
+    throw new AllArgumentsException("Оба аргумента обязательны!");
+
+        return num1 + " * " +  num2 + " = " + calculatorService.multiply(num1, num2);
     }
 
     @GetMapping("/divide")
@@ -63,12 +63,9 @@ public class CalculatorController {
             @RequestParam(name = "num1", required = false) Integer num1,
             @RequestParam(name = "num2", required = false) Integer num2
     ) {
-        if (num1 == null || num2 == null) {
-            return "Оба аргумента обязательны!";
-        }
-        if (num2.equals(0)) {
-            return "Деление на ноль запрещено!";
-        }
-        return calculatorService.divide(num1, num2);
+        if (num1 == null || num2 == null)
+            throw new AllArgumentsException("Оба аргумента обязательны!");
+
+        return num1 + " / " +  num2 + " = " + calculatorService.divide(num1, num2);
     }
 }
